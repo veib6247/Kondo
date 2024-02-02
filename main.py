@@ -88,56 +88,59 @@ def main() -> None:
     print("Processing")
     # go shooot!
     for file_name in tqdm(os.listdir(current_dir)):
-        file_to_move = os.path.join(current_dir, file_name)
 
-        # documents items
-        if file_name.endswith(document_extentions):
-            destination_directory = os.path.join(current_dir, "Documents")
+        # make sure the exe don't kondo itself, lol
+        if file_name != 'kondo.exe':
+            file_to_move = os.path.join(current_dir, file_name)
 
-            # do not move if the file already exists in the destination
-            if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                shutil.move(file_to_move, destination_directory)
+            # documents items
+            if file_name.endswith(document_extentions):
+                destination_directory = os.path.join(current_dir, "Documents")
 
-        # image items
-        elif file_name.endswith(image_extensions):
-            destination_directory = os.path.join(current_dir, "Images")
+                # do not move if the file already exists in the destination
+                if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                    shutil.move(file_to_move, destination_directory)
 
-            #
-            if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                shutil.move(file_to_move, destination_directory)
-
-        # audio items
-        elif file_name.endswith(audio_extensions):
-            destination_directory = os.path.join(current_dir, "Audio")
-
-            #
-            if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                shutil.move(file_to_move, destination_directory)
-
-        # video items
-        elif file_name.endswith(video_extensions):
-            destination_directory = os.path.join(current_dir, "Video")
-
-            #
-            if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                shutil.move(file_to_move, destination_directory)
-
-        # compressed items
-        elif file_name.endswith(compressed_extensions):
-            destination_directory = os.path.join(current_dir, "Compressed")
-
-            #
-            if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                shutil.move(file_to_move, destination_directory)
-
-        # everything else
-        else:
-            if os.path.isfile(file_to_move):
-                destination_directory = os.path.join(current_dir, "Others")
+            # image items
+            elif file_name.endswith(image_extensions):
+                destination_directory = os.path.join(current_dir, "Images")
 
                 #
                 if not os.path.isfile(os.path.join(destination_directory, file_name)):
                     shutil.move(file_to_move, destination_directory)
+
+            # audio items
+            elif file_name.endswith(audio_extensions):
+                destination_directory = os.path.join(current_dir, "Audio")
+
+                #
+                if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                    shutil.move(file_to_move, destination_directory)
+
+            # video items
+            elif file_name.endswith(video_extensions):
+                destination_directory = os.path.join(current_dir, "Video")
+
+                #
+                if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                    shutil.move(file_to_move, destination_directory)
+
+            # compressed items
+            elif file_name.endswith(compressed_extensions):
+                destination_directory = os.path.join(current_dir, "Compressed")
+
+                #
+                if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                    shutil.move(file_to_move, destination_directory)
+
+            # everything else
+            else:
+                if os.path.isfile(file_to_move):
+                    destination_directory = os.path.join(current_dir, "Others")
+
+                    #
+                    if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                        shutil.move(file_to_move, destination_directory)
 
     # fancy console printing
     console_label = f" COMPLETE "
