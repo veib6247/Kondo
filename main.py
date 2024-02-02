@@ -74,7 +74,6 @@ def create_dirs(current_dir: str) -> None:
 def main() -> None:
     """start the damn thing"""
 
-    # current_dir = "C:\\Users\\ozone\\Downloads\\Documents\\Workuments\\playground\\bring me joy"
     current_dir = os.getcwd()
 
     # fancy console printing
