@@ -81,8 +81,7 @@ def move_file(destination_directory: str, file_name: str, file_to_move: str) -> 
 def main() -> None:
     """Start the damn thing"""
 
-    # current_dir = os.getcwd()
-    current_dir = "C:\\Users\\ozone\\Downloads\\Documents\\Workuments\\playground\\bring me joy"
+    current_dir = os.getcwd()
 
     # fancy console printing
     console_label = " START "
