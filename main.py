@@ -51,7 +51,7 @@ compressed_extensions = (
 
 
 def create_dirs(current_dir: str) -> None:
-    """ create the dirs if they don't exist yet"""
+    """ Create the dirs if they don't exist yet"""
 
     required_directories = [
         "Documents",
@@ -71,10 +71,18 @@ def create_dirs(current_dir: str) -> None:
             print("Done")
 
 
-def main() -> None:
-    """start the damn thing"""
+def move_file(destination_directory: str, file_name: str, file_to_move: str) -> None:
+    """Does not move if the file already exists in the destination"""
 
-    current_dir = os.getcwd()
+    if not os.path.isfile(os.path.join(destination_directory, file_name)):
+        shutil.move(file_to_move, destination_directory)
+
+
+def main() -> None:
+    """Start the damn thing"""
+
+    # current_dir = os.getcwd()
+    current_dir = "C:\\Users\\ozone\\Downloads\\Documents\\Workuments\\playground\\bring me joy"
 
     # fancy console printing
     console_label = " START "
@@ -95,51 +103,57 @@ def main() -> None:
             # documents items
             if file_name.endswith(document_extentions):
                 destination_directory = os.path.join(current_dir, "Documents")
-
-                # do not move if the file already exists in the destination
-                if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                    shutil.move(file_to_move, destination_directory)
+                move_file(
+                    destination_directory=destination_directory,
+                    file_name=file_name,
+                    file_to_move=file_to_move
+                )
 
             # image items
             elif file_name.endswith(image_extensions):
                 destination_directory = os.path.join(current_dir, "Images")
-
-                #
-                if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                    shutil.move(file_to_move, destination_directory)
+                move_file(
+                    destination_directory=destination_directory,
+                    file_name=file_name,
+                    file_to_move=file_to_move
+                )
 
             # audio items
             elif file_name.endswith(audio_extensions):
                 destination_directory = os.path.join(current_dir, "Audio")
-
-                #
-                if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                    shutil.move(file_to_move, destination_directory)
+                move_file(
+                    destination_directory=destination_directory,
+                    file_name=file_name,
+                    file_to_move=file_to_move
+                )
 
             # video items
             elif file_name.endswith(video_extensions):
                 destination_directory = os.path.join(current_dir, "Video")
-
-                #
-                if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                    shutil.move(file_to_move, destination_directory)
+                move_file(
+                    destination_directory=destination_directory,
+                    file_name=file_name,
+                    file_to_move=file_to_move
+                )
 
             # compressed items
             elif file_name.endswith(compressed_extensions):
                 destination_directory = os.path.join(current_dir, "Compressed")
-
-                #
-                if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                    shutil.move(file_to_move, destination_directory)
+                move_file(
+                    destination_directory=destination_directory,
+                    file_name=file_name,
+                    file_to_move=file_to_move
+                )
 
             # everything else
             else:
                 if os.path.isfile(file_to_move):
                     destination_directory = os.path.join(current_dir, "Others")
-
-                    #
-                    if not os.path.isfile(os.path.join(destination_directory, file_name)):
-                        shutil.move(file_to_move, destination_directory)
+                    move_file(
+                        destination_directory=destination_directory,
+                        file_name=file_name,
+                        file_to_move=file_to_move
+                    )
 
     # fancy console printing
     console_label = f" COMPLETE "
