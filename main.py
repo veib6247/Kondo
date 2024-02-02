@@ -66,7 +66,7 @@ def create_dirs(current_dir: str) -> None:
 
         if not os.path.exists(os.path.join(current_dir, directory)):
 
-            print(f"Creating folder: {directory}...", end=" ")
+            print(f"Creating folder '{directory}'... ", end=" ")
             os.mkdir(os.path.join(current_dir, directory))
             print("Done")
 
@@ -74,8 +74,8 @@ def create_dirs(current_dir: str) -> None:
 def main() -> None:
     """start the damn thing"""
 
-    current_dir = "C:\\Users\\ozone\\Downloads\\Documents\\Workuments\\playground\\bring me joy"
-    # current_dir = os.getcwd()
+    # current_dir = "C:\\Users\\ozone\\Downloads\\Documents\\Workuments\\playground\\bring me joy"
+    current_dir = os.getcwd()
 
     # fancy console printing
     console_label = " START "
@@ -85,7 +85,7 @@ def main() -> None:
     # create the folders
     create_dirs(current_dir)
 
-    print("Processing...")
+    print("Processing")
     # go shooot!
     for file_name in tqdm(os.listdir(current_dir)):
         file_to_move = os.path.join(current_dir, file_name)
