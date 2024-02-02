@@ -1,6 +1,8 @@
 import os
 import shutil
 
+from tqdm import tqdm
+
 document_extentions = (
     ".txt",
     ".pdf",
@@ -62,11 +64,9 @@ def create_dirs(current_dir: str) -> None:
 
     for directory in required_directories:
 
-        if os.path.exists(os.path.join(current_dir, directory)):
-            print(f"'{directory}' folder already exists")
+        if not os.path.exists(os.path.join(current_dir, directory)):
 
-        else:
-            print(f"'{directory}' folder does exist yet, creating one...", end=" ")
+            print(f"Creating folder: {directory}...", end=" ")
             os.mkdir(os.path.join(current_dir, directory))
             print("Done")
 
@@ -78,46 +78,66 @@ def main() -> None:
     # current_dir = os.getcwd()
 
     # fancy console printing
-    console_label = f" READING FROM {current_dir} "
+    console_label = " START "
     print(f"{console_label:-^100}")
+    print(f"Reading files from: {current_dir}")
 
     # create the folders
     create_dirs(current_dir)
 
+    print("Processing...")
     # go shooot!
-    for file_name in os.listdir(current_dir):
+    for file_name in tqdm(os.listdir(current_dir)):
         file_to_move = os.path.join(current_dir, file_name)
 
         # documents items
         if file_name.endswith(document_extentions):
             destination_directory = os.path.join(current_dir, "Documents")
-            shutil.move(file_to_move, destination_directory)
+
+            # do not move if the file already exists in the destination
+            if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                shutil.move(file_to_move, destination_directory)
 
         # image items
         elif file_name.endswith(image_extensions):
             destination_directory = os.path.join(current_dir, "Images")
-            shutil.move(file_to_move, destination_directory)
+
+            #
+            if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                shutil.move(file_to_move, destination_directory)
 
         # audio items
         elif file_name.endswith(audio_extensions):
             destination_directory = os.path.join(current_dir, "Audio")
-            shutil.move(file_to_move, destination_directory)
+
+            #
+            if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                shutil.move(file_to_move, destination_directory)
 
         # video items
         elif file_name.endswith(video_extensions):
             destination_directory = os.path.join(current_dir, "Video")
-            shutil.move(file_to_move, destination_directory)
+
+            #
+            if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                shutil.move(file_to_move, destination_directory)
 
         # compressed items
         elif file_name.endswith(compressed_extensions):
             destination_directory = os.path.join(current_dir, "Compressed")
-            shutil.move(file_to_move, destination_directory)
+
+            #
+            if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                shutil.move(file_to_move, destination_directory)
 
         # everything else
         else:
             if os.path.isfile(file_to_move):
                 destination_directory = os.path.join(current_dir, "Others")
-                shutil.move(file_to_move, destination_directory)
+
+                #
+                if not os.path.isfile(os.path.join(destination_directory, file_name)):
+                    shutil.move(file_to_move, destination_directory)
 
     # fancy console printing
     console_label = f" COMPLETE "
